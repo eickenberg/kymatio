@@ -16,7 +16,7 @@ from .filter_bank import scattering_filter_factory
 from .filter_bank import calibrate_scattering_filters
 
 
-def compute_minimum_support_to_pad(T, J, Q, criterion_amplitude=1e-3,
+def compute_minimum_support_to_pad(J, T, Q, criterion_amplitude=1e-3,
                                    normalize='l1', r_psi=math.sqrt(0.5),
                                    sigma0=1e-1, alpha=5., P_max=5, eps=1e-7):
     """
@@ -25,10 +25,10 @@ def compute_minimum_support_to_pad(T, J, Q, criterion_amplitude=1e-3,
 
     Parameters
     ----------
-    T : int
-        temporal size of the input signal
     J : int
         scale of the scattering
+    T : int
+        temporal size of the input signal
     Q : int
         number of wavelets per octave
     normalize : string, optional
@@ -120,15 +120,15 @@ class Scattering1D(object):
     ::
 
         # Set the parameters of the scattering transform.
-        T = 2**13
         J = 6
+        T = 2**13
         Q = 8
 
         # Generate a sample signal.
         x = torch.randn(1, 1, T)
 
         # Define a Scattering1D object.
-        S = Scattering1D(T, J, Q)
+        S = Scattering1D(J, T, Q)
 
         # Calculate the scattering transform.
         Sx = S.forward(x)
@@ -142,11 +142,11 @@ class Scattering1D(object):
 
     Parameters
     ----------
-    T : int
-        The length of the input signals.
     J : int
         The maximum log-scale of the scattering transform. In other words,
         the maximum scale is given by `2**J`.
+    T : int
+        The length of the input signals.
     Q : int >= 1
         The number of first-order wavelets per octave (second-order wavelets
         are fixed to one wavelet per octave).
@@ -202,11 +202,11 @@ class Scattering1D(object):
 
     Attributes
     ----------
-    T : int
-        The length of the input signals.
     J : int
         The maximum log-scale of the scattering transform. In other words,
         the maximum scale is given by `2**J`.
+    T : int
+        The length of the input signals.
     Q : int
         The number of first-order wavelets per octave (second-order wavelets
         are fixed to one wavelet per octave).
@@ -245,14 +245,14 @@ class Scattering1D(object):
         or collected into a dictionary. For more details, see the
         documentation for `forward()`.
     """
-    def __init__(self, T, J, Q, normalize='l1', criterion_amplitude=1e-3,
+    def __init__(self, J, T, Q, normalize='l1', criterion_amplitude=1e-3,
                  r_psi=math.sqrt(0.5), sigma0=0.1, alpha=5.,
                  P_max=5, eps=1e-7, max_order=2, average=True,
                  oversampling=0, vectorize=True):
         super(Scattering1D, self).__init__()
         # Store the parameters
-        self.T = T
         self.J = J
+        self.T = T
         self.Q = Q
         self.r_psi = r_psi
         self.sigma0 = sigma0
@@ -279,7 +279,7 @@ class Scattering1D(object):
         """
         # Compute the minimum support to pad (ideally)
         min_to_pad = compute_minimum_support_to_pad(
-            self.T, self.J, self.Q, r_psi=self.r_psi, sigma0=self.sigma0,
+            self.J, self.T, self.Q, r_psi=self.r_psi, sigma0=self.sigma0,
             alpha=self.alpha, P_max=self.P_max, eps=self.eps,
             criterion_amplitude=self.criterion_amplitude,
             normalize=self.normalize)
