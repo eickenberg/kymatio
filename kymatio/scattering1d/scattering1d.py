@@ -16,7 +16,7 @@ from .filter_bank import scattering_filter_factory
 from .filter_bank import calibrate_scattering_filters
 
 
-def compute_minimum_support_to_pad(J, T, Q, criterion_amplitude=1e-3,
+def compute_minimum_support_to_pad(T, J, Q, criterion_amplitude=1e-3,
                                    normalize='l1', r_psi=math.sqrt(0.5),
                                    sigma0=1e-1, alpha=5., P_max=5, eps=1e-7):
     """
@@ -25,10 +25,10 @@ def compute_minimum_support_to_pad(J, T, Q, criterion_amplitude=1e-3,
 
     Parameters
     ----------
-    J : int
-        scale of the scattering
     T : int
         temporal size of the input signal
+    J : int
+        scale of the scattering
     Q : int
         number of wavelets per octave
     normalize : string, optional
@@ -279,7 +279,7 @@ class Scattering1D(object):
         """
         # Compute the minimum support to pad (ideally)
         min_to_pad = compute_minimum_support_to_pad(
-            self.J, self.T, self.Q, r_psi=self.r_psi, sigma0=self.sigma0,
+            self.T, self.J, self.Q, r_psi=self.r_psi, sigma0=self.sigma0,
             alpha=self.alpha, P_max=self.P_max, eps=self.eps,
             criterion_amplitude=self.criterion_amplitude,
             normalize=self.normalize)
