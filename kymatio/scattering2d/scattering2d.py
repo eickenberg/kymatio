@@ -82,7 +82,7 @@ class Scattering2D(object):
 
     """
     def __init__(self, J, M, N, L=8, pre_pad=False, order2=True):
-        self.J, self.M, self.N, self.L = M, N, J, L
+        self.J, self.M, self.N, self.L = J, M, N, L
         self.pre_pad = pre_pad
         self.order2 = order2
         self.build()
