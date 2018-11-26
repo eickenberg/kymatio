@@ -32,18 +32,21 @@ class Scattering3D(object):
         number of l values
 
     """
-    def __init__(self, J, M, N, O, L, sigma_0):
+    def __init__(self, J, shape, L, sigma_0):
         super(Scattering3D, self).__init__()
         self.J = J
-        self.M = M
-        self.N = N
-        self.O = O
+        self.shape = shape
         self.L = L
         self.sigma_0 = sigma_0
+
+        self.build()
+
+    def build(self):
+        self.M, self.N, self.O = self.shape
         self.filters = solid_harmonic_filter_bank(
-                            self.M, self.N, self.O, self.J, self.L, sigma_0)
+                            self.M, self.N, self.O, self.J, self.L, self.sigma_0)
         self.gaussian_filters = gaussian_filter_bank(
-                                self.M, self.N, self.O, self.J + 1, sigma_0)
+                                self.M, self.N, self.O, self.J + 1, self.sigma_0)
 
     def _fft_convolve(self, input_array, filter_array):
         """
