@@ -81,13 +81,16 @@ class Scattering2D(object):
      to False.
 
     """
-    def __init__(self, J, M, N, L=8, pre_pad=False, order2=True):
-        self.J, self.M, self.N, self.L = J, M, N, L
+    def __init__(self, J, shape, L=8, pre_pad=False, order2=True):
+        self.J, self.L = J, L
         self.pre_pad = pre_pad
         self.order2 = order2
+        self.shape = shape
+
         self.build()
 
     def build(self):
+        self.M, self.N = self.shape
         self.modulus = Modulus()
         self.pad = Pad(2**self.J, pre_pad = self.pre_pad)
         self.subsample_fourier = SubsampleFourier()
