@@ -44,8 +44,8 @@ class Scattering2D(object):
     ----------
     J : int
         logscale of the scattering
-    M, N : int
-        spatial support of the input
+    shape : tuple of int
+        spatial support (M, N) of the input
     L : int, optional
         number of angles used for the wavelet transform
     pre_pad : boolean, optional
@@ -57,8 +57,8 @@ class Scattering2D(object):
     ----------
     J : int
         logscale of the scattering
-    M, N : int
-        spatial support of the input
+    shape : tuple of int
+        spatial support (M, N) of the input
     L : int, optional
         number of angles used for the wavelet transform
     pre_pad : boolean
