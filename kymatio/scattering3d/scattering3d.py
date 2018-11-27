@@ -22,12 +22,8 @@ class Scattering3D(object):
     ----------
     J: int
         number of scales
-    M: int
-        height of input 3D image size
-    N: int
-        width of input 3D image size
-    O: int
-        depth of input 3D image size
+    shape: tuple of int
+        shape (M, N, O) of the input signal
     L: int
         number of l values
 
